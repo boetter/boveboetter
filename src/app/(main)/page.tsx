@@ -27,16 +27,21 @@ function PlayIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function EpisodeEntry({ episode }: { episode: Episode }) {
   let date = new Date(episode.published)
+  
+  // Generer en unik ID baseret på episodenummer, eller brug en tilfældig ID hvis episodenummer ikke findes
+  const elementId = episode.episodeNumber 
+    ? `episode-${episode.episodeNumber}-title` 
+    : `episode-${Math.random().toString(36).substring(2, 9)}-title`;
 
   return (
     <article
-      aria-labelledby={`episode-${episode.id}-title`}
+      aria-labelledby={elementId}
       className="py-10 sm:py-12"
     >
       <Container>
         <div className="flex flex-col items-start">
           <h2
-            id={`episode-${episode.id}-title`}
+            id={elementId}
             className="mt-2 text-lg font-bold text-slate-900"
           >
             {episode.title}
@@ -45,10 +50,10 @@ function EpisodeEntry({ episode }: { episode: Episode }) {
             date={date}
             className="order-first font-mono text-sm/7 text-slate-500"
           />
-<div
-  className="mt-1 text-base/7 text-slate-700"
-  dangerouslySetInnerHTML={{ __html: episode.description }}
-/>
+          <div
+            className="mt-1 text-base/7 text-slate-700"
+            dangerouslySetInnerHTML={{ __html: episode.description }}
+          />
           <div className="mt-4 flex items-center gap-4">
             <EpisodePlayButton
               episode={episode}
@@ -83,7 +88,10 @@ export default async function Home() {
       </Container>
       <div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100">
         {episodes.map((episode) => (
-          <EpisodeEntry key={episode.id} episode={episode} />
+          <EpisodeEntry 
+            key={episode.episodeNumber ? `episode-${episode.episodeNumber}` : episode.title} 
+            episode={episode} 
+          />
         ))}
       </div>
     </div>
