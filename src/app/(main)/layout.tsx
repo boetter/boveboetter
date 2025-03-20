@@ -122,7 +122,7 @@ export default function MainLayout({
   {(
     [
       ['Spotify', SpotifyIcon, 'https://open.spotify.com/show/4pBhK7alSZqsiwCUZM0UtC'],
-      ['Apple Podcast', ApplePodcastIcon, 'https://podcasts.apple.com/'],
+      ['Apple Podcast', ApplePodcastIcon, 'https://podcasts.apple.com/us/podcast/bove-og-bøtter/id1802626938'],
       ['RSS Feed', RSSIcon, 'https://anchor.fm/s/102898a0c/podcast/rss'],
     ] as const
   ).map(([label, Icon, url]) => (
